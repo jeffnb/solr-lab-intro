@@ -7,6 +7,7 @@ This repo contains sample data sets as well as configuration files to run a core
 ## Sections
 * data-files: 2 files containing movie data sets.  `movie_data_cleaned.json` is the primary resource to use
 * configsets: Contains different configuration sets for various points in the lab
+	* movies-start: intro config set
 	* movies-demo: fully set up schema and config for the dataset
 
 ## Solr setup
@@ -15,3 +16,7 @@ This repo contains sample data sets as well as configuration files to run a core
 * Start: `bin/solr start`
 * Stop: `bin/solr stop`
 
+## Setup Complete Demo
+* Start solr (from the solr directory): `bin/solr start`
+* Create a core: `bin/solr -c movies -d <PATH TO THE movies-demo DIRECTORY>`
+* Import data: `bin/post -c movies <YOURPATH>/data-files/movie_data_cleaned.json`
