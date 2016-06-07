@@ -111,6 +111,7 @@
      tokens
    -->   
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
+   <field name="text" type="text_en" indexed="true" stored="false" multiValued="true"/>
 
    <!-- Raw types without tokenizers useful for faceting -->
    <field name="Country" type="string" indexed="true" stored="true" required="true" multiValued="false" />
@@ -140,6 +141,18 @@
    <copyField source="genres" dest="genres_en"/>
    <copyField source="directors" dest="directors_en"/> 
    <copyField source="writers" dest="writers_en"/>
+
+   <!-- Field for df -->
+   <copyField source="Title" dest="text"/>
+   <copyField source="Plot" dest="text"/>
+   <copyField source="actors" dest="text"/>
+   <copyField source="genres" dest="text"/>
+   <copyField source="Awards" dest="text"/>
+   <copyField source="Country" dest="text"/>
+   <copyField source="Language" dest="text"/>
+   <copyField source="Type" dest="text"/>
+   <copyField source="writers" dest="text"/>
+   <copyField source="directors" dest="text"/>
 
    <!-- Dynamic field definitions allow using convention over configuration
        for fields via the specification of patterns to match field names. 
