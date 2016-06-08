@@ -9,6 +9,14 @@ This repo contains sample data sets as well as configuration files to run a core
 * configsets: Contains different configuration sets for various points in the lab
 	* movies-start: intro config set
 	* movies-demo: fully set up schema and config for the dataset
+* labs: All of the labs from the class
+* resources: In class resources including presentation
+
+## Important Resources
+* [In class Solr](http://ec2-184-72-110-170.compute-1.amazonaws.com:8983/solr/#/)
+* [Download Solr](http://lucene.apache.org/solr/downloads.html)
+* [Solr Reference Guide](https://cwiki.apache.org/confluence/display/solr/Apache+Solr+Reference+Guide)
+
 
 ## Solr setup
 * Download: http://mirror.sdunix.com/apache/lucene/solr/6.0.0/solr-6.0.0.zip
