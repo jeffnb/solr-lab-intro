@@ -19,10 +19,16 @@ This repo contains sample data sets as well as configuration files to run a core
 
 
 ## Solr setup
-* Download: http://mirror.sdunix.com/apache/lucene/solr/6.0.0/solr-6.0.0.zip
-* Expand the zip file
-* Start: `bin/solr start`
-* Stop: `bin/solr stop`
+* Download:
+	* Linux/Mac: http://mirror.cogentco.com/pub/apache/lucene/solr/6.5.0/solr-6.5.0.tgz
+	* Windows: http://mirror.cogentco.com/pub/apache/lucene/solr/6.5.0/solr-6.5.0.zip 
+* Expand the archive file
+* Start: 
+	* Linux/Mach: `bin/solr start`
+	* Windows: `bin\solr.cmd start`
+* Stop:
+	* Linux/Mach: `bin/solr start`
+	* Windows: `bin\solr.cmd start`
 
 ## Setup Complete Demo
 * Start solr (from the solr directory): `bin/solr start`
