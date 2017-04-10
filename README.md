@@ -13,10 +13,10 @@ This repo contains sample data sets as well as configuration files to run a core
 * resources: In class resources including presentation
 
 ## Important Resources
-* [In class Solr](http://ec2-184-72-110-170.compute-1.amazonaws.com:8983/solr/#/)
+* [In class Solr](http://solr.omnilabsinc.com:8983/solr/#/)
 * [Download Solr](http://lucene.apache.org/solr/downloads.html)
 * [Solr Reference Guide](https://cwiki.apache.org/confluence/display/solr/Apache+Solr+Reference+Guide)
-
+* [SolrJ Schema JavaDocs](http://lucene.apache.org/solr/5_5_2/solr-solrj/org/apache/solr/client/solrj/request/schema/package-summary.html)
 
 ## Solr setup
 * Download:
