@@ -25,9 +25,8 @@ public class Main {
             listings.add(mapper.readValue(input.nextLine(), Listing.class));
         }
 
-
         //Stand alone server example
-        String urlString = "http://localhost:8983/solr/listings";
+        String urlString = "http://solr.omnilabsinc.com:8983/solr/listings";
         SolrClient solr = new HttpSolrClient.Builder(urlString).build();
 
         // Make a date formatter
@@ -69,13 +68,16 @@ public class Main {
                 doc.addField("madeFacet", made);
             }
 
-            try {
-                solr.add(doc);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            docs.add(doc);
             ids.add(l.listingId);
         }
+
+        try {
+            solr.add(docs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         solr.commit();
         System.out.println("Total ids:" + ids.size());
 
