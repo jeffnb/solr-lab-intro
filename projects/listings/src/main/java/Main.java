@@ -18,15 +18,16 @@ public class Main {
     public static void main(String[] args) throws IOException, SolrServerException {
 
         Scanner input = new Scanner(new File("cleaned-listings.json"));
-
+        System.out.println("Reading and Mapping Records");
         ObjectMapper mapper = new ObjectMapper();
         List<Listing> listings = new ArrayList<>();
         while(input.hasNext()) {
             listings.add(mapper.readValue(input.nextLine(), Listing.class));
         }
 
+        System.out.println("Setting up solr client");
         //Stand alone server example
-        String urlString = "http://solr.omnilabsinc.com:8983/solr/listings";
+        String urlString = "http://localhost:8983/solr/listings";
         SolrClient solr = new HttpSolrClient.Builder(urlString).build();
 
         // Make a date formatter
@@ -37,6 +38,7 @@ public class Main {
         //Create all the documents
         ArrayList<SolrInputDocument> docs = new ArrayList<>();
         Set<Long> ids = new HashSet<>();
+        System.out.println("Creating documents for server");
         for(Listing l : listings){
             SolrInputDocument doc = l.createSolrDoc();
 
@@ -55,7 +57,6 @@ public class Main {
                 doc.addField("popularity", popularity);
             }
 
-
             if(l.whenMade != null){
                 String made = "";
                 if(l.whenMade.equals("made_to_order")){
@@ -72,12 +73,14 @@ public class Main {
             ids.add(l.listingId);
         }
 
+        System.out.println("Calling solr to add documents");
         try {
             solr.add(docs);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        System.out.println("Issuing commit");
         solr.commit();
         System.out.println("Total ids:" + ids.size());
 
