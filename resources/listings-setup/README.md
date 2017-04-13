@@ -6,7 +6,7 @@ Instructions to set up the demo version of the listings core
 ## Instructions
 
 ### Setup the core itself
-* Ensure solr is running (Usually http://locahost:8983/solr/)
+* Ensure solr is running (http://locahost:8983/solr/)
 * `bin/solr create_core -c listings -d <path_to_class_repo>/configsets/listings-demo/`
 * Ensure the core was created in the admin http://locahost:8983/solr/~cores/
 
