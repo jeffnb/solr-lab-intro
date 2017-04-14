@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Main {
@@ -68,6 +69,10 @@ public class Main {
 
                 doc.addField("madeFacet", made);
             }
+
+            // Add a fake review
+            int review = ThreadLocalRandom.current().nextInt(0, 101);
+            doc.addField("rating", review);
 
             docs.add(doc);
             ids.add(l.listingId);
