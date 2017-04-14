@@ -31,7 +31,7 @@ For this part of the project it is time to really dig into solr. We are going to
 	* Order by price asc
 	* Print out the title and the price
 * Relevancy
-	* Look for replica and prop in `description`
+	* Look for replica and prop in the default field `text`
 	* Boost the term prop by 5
-	* If both replica and prop are in the `description` within 5 terms of each other boost by 10
+	* If both replica and prop are within 5 terms of each other boost by 10
 	* Print out the `id` and `title` 
