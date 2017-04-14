@@ -214,6 +214,7 @@
  <field name="madeFacet" type="string" indexed="true" stored="true"/>
  <field name="modifiedFormatted" type="string" indexed="false" stored="true"/>
  <field name="popularity" type="double" indexed="true" stored="true"/>
+ <field name="rating" type="int" indexed="true" stored="true"/>
 
  <field name="title" type="text_en" indexed="true" stored="true" required="true"/>
  <field name="description" type="text_en" indexed="true" stored="true" required="true"/>
@@ -228,10 +229,12 @@
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
 
-  <!--
    <copyField source="title" dest="text"/>
-   <copyField source="body" dest="text"/>
-  -->
+   <copyField source="description" dest="text"/>
+   <copyField source="tags" dest="text"/>
+   <copyField source="materials" dest="text"/>
+   <copyField source="recipient" dest="text"/>
+   <copyField source="taxonomyPath_search" dest="text"/>
 
     <!-- field type definitions. The "name" attribute is
        just a label to be used by field definitions.  The "class"
