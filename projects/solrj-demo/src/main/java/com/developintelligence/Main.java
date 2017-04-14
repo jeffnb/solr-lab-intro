@@ -13,9 +13,7 @@ import org.apache.solr.client.solrj.request.ConfigSetAdminRequest;
 import org.apache.solr.client.solrj.request.schema.AnalyzerDefinition;
 import org.apache.solr.client.solrj.request.schema.FieldTypeDefinition;
 import org.apache.solr.client.solrj.request.schema.SchemaRequest;
-import org.apache.solr.client.solrj.response.FacetField;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.apache.solr.client.solrj.response.*;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.util.NamedList;
@@ -32,7 +30,7 @@ public class Main {
     public static void main(String[] args) throws IOException, SolrServerException {
 
         //Stand alone server example
-        String urlString = "http://localhost:8983/solr/demo";
+        String urlString = "http://localhost:8983/solr/movies";
         SolrClient solr = new HttpSolrClient
                 .Builder(urlString).build();
 
@@ -75,6 +73,9 @@ public class Main {
         query.addFacetField("Year", "Rated", "genres");
         query.setFacetMinCount(1);
         query.addNumericRangeFacet("Metascore", 1, 100, 10);
+
+        String[] sets = {"{!key=terrible}[0, 50)", "{!key=optional}[50, 70)", "{!key=worthwating}[70, 100)"};
+        query.addIntervalFacets("Metascore", sets);
         query.setFacetLimit(100);
 
         // Call solr with search
@@ -91,71 +92,90 @@ public class Main {
             }
         }
 
+        List<RangeFacet> ranges = response.getFacetRanges();
+        for(RangeFacet range : ranges){
+            List<RangeFacet.Count> counts = range.getCounts();
+            for(RangeFacet.Count count : counts){
+                count.getValue();
+                count.getCount();
+            }
+        }
+
+        List<IntervalFacet> intervals = response.getIntervalFacets();
+        for(IntervalFacet interval : intervals){
+            for(IntervalFacet.Count count : interval.getIntervals()){
+                count.getKey();
+                count.getCount();
+            }
+        }
+
+
+
         /************************************************
          * Schema Api
          ************************************************/
 
         // Get all fields
-        SchemaRequest.Fields fieldsRequest =
-                new SchemaRequest.Fields();
-        NamedList fieldsResponse = solr.request(fieldsRequest);
-        List fieldsList = (List)fieldsResponse.get("fields");
+//        SchemaRequest.Fields fieldsRequest =
+//                new SchemaRequest.Fields();
+//        NamedList fieldsResponse = solr.request(fieldsRequest);
+//        List fieldsList = (List)fieldsResponse.get("fields");
+//
+//        // Getting a field
+//        SchemaRequest.Field request =
+//                new SchemaRequest.Field("Title");
+//        NamedList fieldResponse = solr.request(request);
+//
+//        // Getting a field type
+//        SchemaRequest.FieldType ft = new SchemaRequest.FieldType("text_general");
+//        NamedList ftNamedList = solr.request(ft);
+//
+//
+//        // Don't be fooled this is not extending map
+//        SimpleOrderedMap fieldMap =
+//                (SimpleOrderedMap)fieldResponse.get("field");
+//        String name = (String)fieldMap.get("name");
+//        String type = (String)fieldMap.get("type");
+//        Boolean indexed = (Boolean)fieldMap.get("indexed");
+//
+//        // Create the map for the values
+//        Map<String, Object> valueMap = new HashMap<>();
+//        valueMap.put("name", "amazon");
+//        valueMap.put("type", "string");
+//        valueMap.put("stored", true);
+//        valueMap.put("indexed", false);
+//        SchemaRequest.AddField addFieldRequest =
+//                new SchemaRequest.AddField(valueMap);
+//        //Returns the newly created field
+//        NamedList addFieldResponse = solr.request(request);
 
-        // Getting a field
-        SchemaRequest.Field request =
-                new SchemaRequest.Field("Title");
-        NamedList fieldResponse = solr.request(request);
-
-        // Getting a field type
-        SchemaRequest.FieldType ft = new SchemaRequest.FieldType("text_general");
-        NamedList ftNamedList = solr.request(ft);
-
-
-        // Don't be fooled this is not extending map
-        SimpleOrderedMap fieldMap =
-                (SimpleOrderedMap)fieldResponse.get("field");
-        String name = (String)fieldMap.get("name");
-        String type = (String)fieldMap.get("type");
-        Boolean indexed = (Boolean)fieldMap.get("indexed");
-
-        // Create the map for the values
-        Map<String, Object> valueMap = new HashMap<>();
-        valueMap.put("name", "amazon");
-        valueMap.put("type", "string");
-        valueMap.put("stored", true);
-        valueMap.put("indexed", false);
-        SchemaRequest.AddField addFieldRequest =
-                new SchemaRequest.AddField(valueMap);
-        //Returns the newly created field
-        NamedList addFieldResponse = solr.request(request);
-
-        FieldTypeDefinition fieldTypeDefinition = new FieldTypeDefinition();
-        AnalyzerDefinition analyzerDefinition = new AnalyzerDefinition();
-        analyzerDefinition.setFilters();
-        fieldTypeDefinition.setAnalyzer();
-        SchemaRequest.AddFieldType addFieldType = new SchemaRequest.AddFieldType()
+//        FieldTypeDefinition fieldTypeDefinition = new FieldTypeDefinition();
+//        AnalyzerDefinition analyzerDefinition = new AnalyzerDefinition();
+//        analyzerDefinition.setFilters();
+//        fieldTypeDefinition.setAnalyzer();
+//        SchemaRequest.AddFieldType addFieldType = new SchemaRequest.AddFieldType()
 
 
         /************************************************
          * Indexing
          ************************************************/
-        ConcurrentUpdateSolrClient conSolr =
-                new ConcurrentUpdateSolrClient.Builder(urlString).build();
-        conSolr.setRequestWriter(new BinaryRequestWriter());
-
-        SolrInputDocument document = new SolrInputDocument();
-        document.addField("Type", "movie");
-        document.addField("id", "tt1234566");
-        document.addField("genres",
-                Arrays.asList("horror", "thriller"));
-        UpdateResponse addResponse = conSolr.add(document);
-
-        //By default will block until hard commit is done
-        UpdateResponse commit = solr.commit();
-
-        //By default will block until complete
-        UpdateResponse optimize = solr.optimize();
-
+//        ConcurrentUpdateSolrClient conSolr =
+//                new ConcurrentUpdateSolrClient.Builder(urlString).build();
+//        conSolr.setRequestWriter(new BinaryRequestWriter());
+//
+//        SolrInputDocument document = new SolrInputDocument();
+//        document.addField("Type", "movie");
+//        document.addField("id", "tt1234566");
+//        document.addField("genres",
+//                Arrays.asList("horror", "thriller"));
+//        UpdateResponse addResponse = conSolr.add(document);
+//
+//        //By default will block until hard commit is done
+//        UpdateResponse commit = solr.commit();
+//
+//        //By default will block until complete
+//        UpdateResponse optimize = solr.optimize();
+//
         String foo = "bar";
 
     }
