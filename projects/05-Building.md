@@ -5,14 +5,23 @@ You have seen what is available in the core now it is time to create a schema fo
 * You will be doing a scaled back version as many of the fields were fairly worthless
 * If you are confused look at the already built solr core (query only) to try to figure out what should happen
 
+## Setting up the Core
+* Make sure solr is running
+* In the solr directory run `bin/solr create_core -c listingproject -d <path-to-repo>/configsets/listings-start/`
+* This gives you basically a blank core
+* Make your changes in `server/solr/listingproject/conf/managed-schema`
+* As you make your changes reload the core
+* If the core fails you may need to restart solr
+
 ## Fields
-These are the field that will need to be in the core assume all are stored
+These are the field that will need to be in the core assume all are stored. Take note as to which are required in the list and also pay attention to which are multivalued based on the data from the core.
 * whenMade
 * taxonomyPath
 * numFavors
-* quantity
-* lastModified
+* quantity - required
+* lastModified - required
 * description
+* listingId - required
 * tags
 * ending
 * url
@@ -44,3 +53,6 @@ Create these fields and make sure that you have the directive to copy them over.
 ### Optional
 * rating: This doesn't exist so put in a random number
 * yearMade: This is a special field that represents all years that the item could have been made in.
+
+## Hint
+Since you have a working solr core running already with similar data, use the query admin and do a facet on fields like whenMade to get a sense of the values
