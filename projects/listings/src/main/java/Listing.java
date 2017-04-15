@@ -128,54 +128,5 @@ public class Listing {
 
     @JsonProperty("shipping_template_id")
     public Long shippingTemplateId;
-    
-    public SolrInputDocument createSolrDoc(){
-        SolrInputDocument doc = new SolrInputDocument();
-        doc.addField("id", listingId);
-        doc.addField("whenMade", whenMade);
-        doc.addField("taxonomyPath", taxonomyPath);
-        doc.addField("isPrivate", isPrivate);
-        doc.addField("isSupply", isSupply);
-        doc.addField("itemWidth", itemWidth);
-        doc.addField("categoryPathId", categoryPathIds);
-        doc.addField("numFavors", numFavorers);
-        doc.addField("itemWeightUnits", itemWeightUnits);
-        doc.addField("quantity", quantity);
-        doc.addField("lastModified", lastModified);
-        doc.addField("categoryId", categoryId);
-        doc.addField("description", description);
-        doc.addField("itemHeight", itemHeight);
-        doc.addField("tags", tags);
-        doc.addField("ending", ending);
-        doc.addField("url", url);
-        doc.addField("fileData", fileData);
-        doc.addField("usedManufacturer", usedManufacturer);
-        doc.addField("isDigital", isDigital);
-        doc.addField("itemWeight", itemWeight);
-        doc.addField("taxonomyId", taxonomyId);
-        doc.addField("currencyCode", currencyCode);
-        doc.addField("processingMin", processingMin);
-        doc.addField("userId", userId);
-        doc.addField("occasion", occasion);
-        doc.addField("title", title);
-        doc.addField("language", language);
-        doc.addField("whoMade", whoMade);
-        doc.addField("itemLength", itemLength);
-        doc.addField("materials", materials);
-        doc.addField("creation", creation);
-        doc.addField("recipient", recipient);
-        doc.addField("hasVariations", hasVariations);
-        doc.addField("processingMax", processingMax);
-        doc.addField("isCustomizable", isCustomizable);
-        doc.addField("stateTsz", stateTsz);
-        doc.addField("nonTaxable", nonTaxable);
-        doc.addField("price", price);
-        doc.addField("itemDimensionUnit", itemDimensionsUnit);
-        doc.addField("views", views);
-        doc.addField("state", state);
-        doc.addField("listingId", listingId);
-
-        return doc;
-    }
 
 }
