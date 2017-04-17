@@ -571,9 +571,9 @@
        <searchComponent name="mlt"       class="solr.MoreLikeThisComponent" />
        <searchComponent name="highlight" class="solr.HighlightComponent" />
        <searchComponent name="stats"     class="solr.StatsComponent" />
-       <searchComponent name="debug"     class="solr.DebugComponent" />
        
      -->
+       <searchComponent name="debug"     class="solr.DebugComponent" />
 
   <!-- Terms Component
 
