@@ -31,6 +31,11 @@ This repo contains sample data sets as well as configuration files to run a core
 	* Windows: `bin\solr.cmd start`
 
 ## Setup Complete Movies Demo
+### Mac/Linux:
 * Start solr (from the solr directory): `bin/solr start`
 * Create a core: `bin/solr create_core -c movies -d <PATH TO THE movies-demo DIRECTORY>`
 * Import data: `bin/post -c movies <YOURPATH>/data-files/movie_data_cleaned.json`
+### Windows
+* Start solr (from the solr directory): `bin\solr.cmd start`
+* Create a core: `bin\solr.cmd create_core -c movies -d <PATH TO THE movies-demo DIRECTORY>`
+* Import data: `java -jar -Dtype=application/json -Dc=movies example\exampledocs\post.jar <YOURPATH>\data-files\movie_data_cleaned.json`
